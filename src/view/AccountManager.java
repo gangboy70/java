@@ -34,7 +34,8 @@ public class AccountManager extends javax.swing.JPanel {
     }
 
     private void addChangeListener() {
-        
+        ChangeListener listen = new ChangeListener();
+        listen.start();
     }
 
     private void fillUserTable() {
