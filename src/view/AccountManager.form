@@ -47,16 +47,25 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Add user"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addUserActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="changeUser">
           <Properties>
             <Property name="text" type="java.lang.String" value="Change user"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="changeUserActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="deleteUser">
           <Properties>
             <Property name="text" type="java.lang.String" value="Delete user"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteUserActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

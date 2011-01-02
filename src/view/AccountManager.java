@@ -11,6 +11,9 @@
 
 package view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import main.MainApplication;
 import model.User;
@@ -21,10 +24,17 @@ import model.User;
  */
 public class AccountManager extends javax.swing.JPanel {
 
+    private int userID;
+
     /** Creates new form AccountManager */
     public AccountManager() {
         initComponents();
         fillUserTable();
+        addChangeListener();
+    }
+
+    private void addChangeListener() {
+        
     }
 
     private void fillUserTable() {
@@ -54,12 +64,27 @@ public class AccountManager extends javax.swing.JPanel {
         userTable = new javax.swing.JTable();
 
         addUser.setText("Add user");
+        addUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUserActionPerformed(evt);
+            }
+        });
         jPanel1.add(addUser);
 
         changeUser.setText("Change user");
+        changeUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeUserActionPerformed(evt);
+            }
+        });
         jPanel1.add(changeUser);
 
         deleteUser.setText("Delete user");
+        deleteUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteUserActionPerformed(evt);
+            }
+        });
         jPanel1.add(deleteUser);
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -102,6 +127,31 @@ public class AccountManager extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void changeUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_changeUserActionPerformed
+
+    private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addUserActionPerformed
+
+    private void deleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserActionPerformed
+        User user = MainApplication.getQueryManager().getUser(userID);
+        int choice = JOptionPane.showConfirmDialog(
+            null,
+            "Are you sure you want to remove " + user.getGebruikersnaam() + " ?",
+            "Warning!",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+
+        if (choice == JOptionPane.YES_OPTION)
+        {
+            MainApplication.getQueryManager().deleteUser(userID);
+            MainApplication.getInstance().showPanel(new AccountManager());
+        }
+    }//GEN-LAST:event_deleteUserActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addUser;
@@ -112,4 +162,31 @@ public class AccountManager extends javax.swing.JPanel {
     private javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 
+    private class ChangeListener extends Thread {
+        public ChangeListener() {
+        }
+
+        @Override
+        public void run() {
+            while (true)
+            {
+                try {
+                    if (userTable.getSelectedColumn() != -1)
+                    {
+                        userID = Integer.parseInt(userTable.getModel().getValueAt(userTable.getSelectedRow(), 0).toString());
+                        changeUser.setEnabled(true);
+                        deleteUser.setEnabled(true);
+                    }
+                    else
+                    {
+                        changeUser.setEnabled(false);
+                        deleteUser.setEnabled(false);
+                    }
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(AccountManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
 }
