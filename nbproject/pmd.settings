@@ -1,0 +1,7 @@
+FinalFieldCouldBeStatic
+SystemPrintln
+DoNotUseThreads
+MethodArgumentCouldBeFinal
+AvoidInstantiatingObjectsInLoops
+LocalVariableCouldBeFinal
+BeanMembersShouldSerialize
