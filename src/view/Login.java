@@ -190,7 +190,7 @@ public class Login extends JPanel {
         if (TypedPass.equals(GoodPass))
         {
             MainApplication.getInstance().setUser(user);
-            //WinkelApplication.getInstance().showPanel(new view.MainMenu());
+            MainApplication.getInstance().showPanel(new view.MainMenu());
         }
         else
         {
